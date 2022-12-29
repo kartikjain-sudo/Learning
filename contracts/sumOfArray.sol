@@ -30,4 +30,15 @@ contract sum {
             }
         }
     }
+
+    // minor optimization
+    function sumLL2(uint256[] memory _arr) public pure returns (uint256 _sum) { // 24624 gas
+        // _arr is the pointer in memory where the length of the array is stored
+        assembly {
+            let len := mload(_arr) // Load the length of the array from the first slot
+            for {let i:=0} iszero(eq(i,len)) { i:= add(i,1)} { // Start at i = 0 and iterate while i < len, incrementing i by 1 each time
+                _sum := add(_sum, mload(add(add(_arr, 0x20), mul(i, 0x20)))) // Add the value at the current index to the sum
+            }
+        }
+    }
 }
