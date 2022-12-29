@@ -52,6 +52,7 @@ const config: HardhatUserConfig = {
       },
       forking: {
         url: process.env.ARCHIVE_NODE || "",
+        blockNumber: 12143740,
       },
     },
     localhost: {
