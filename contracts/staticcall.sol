@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: None
-pragma solidity 0.8.0;
+pragma solidity 0.8.17;
 
 contract Test1 {
     function add(uint a, uint b) public pure returns(uint256){  //Simply add the two arguments and return
