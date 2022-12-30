@@ -90,4 +90,18 @@ contract sum {
         }
     }
 
+    function sumLL6(uint32[] calldata _arr) public pure returns (uint256 _sum) { // 23196
+        // _arr is the pointer in memory where the length of the array is stored
+        assembly {
+            if _arr.length {
+                let end := add(_arr.offset, shl(5, _arr.length)) 
+                let i := _arr.offset
+                for {} 1 {} {
+                    _sum := add(_sum, calldataload(i))
+                    i := add(i, 0x20)
+                    if iszero(lt(i, end)) { break }
+                }
+            }
+        }
+    }
 }
