@@ -75,4 +75,19 @@ contract sum {
         }
     }
 
+    function sumLL5(uint32[] memory _arr) public pure returns (uint256 _sum) { // 24699-iszero(lt()), 24737-eq gas
+        // _arr is the pointer in memory where the length of the array is stored
+        assembly {
+            if mload(_arr) {
+                let end := add(add(_arr,0x20), shl(5, mload(_arr))) 
+                let i := add(_arr, 0x20)
+                for {} 1 {} {
+                    _sum := add(_sum, mload(i))
+                    i := add(i, 0x20)
+                    if iszero(lt(i, end)) { break }
+                }
+            }
+        }
+    }
+
 }
